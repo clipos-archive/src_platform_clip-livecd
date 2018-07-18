@@ -1,0 +1,141 @@
+#!/bin/sh
+# SPDX-License-Identifier: LGPL-2.1-or-later
+# Copyright © 2008-2018 ANSSI. All Rights Reserved.
+# Copyright (C) 2012 ANSSI
+# Author: Mickaël Salaün <clipos@ssi.gouv.fr>
+# All rights reserved
+
+# Usage:
+# cd /mnt/usb/helpers && cat postinst-rm.sub postinst-entity0.sh | sh
+
+# e.g. postinst-entity0.sh :
+#   begin
+#   set_homepage "https://www.ssi.gouv.fr"
+#   desktop_link "firefox"
+#   desktop_link "thunderbird"
+#   end
+
+runwait() {
+	local wait_sec="$1"
+	local check_file="$2"
+	shift 2
+
+	if [ "${check_file##/}" == "${check_file}" ]; then
+		check_file="${HOME}/${check_file}"
+	fi
+	[ ! -e "${check_file}" ] || return
+
+	( "$@" >/dev/null 2>&1 0</dev/full ) &
+	local pid="$!"
+	if [ "${wait_sec}" -le 0 ]; then
+		wait "${pid}"
+	else
+		sleep "${wait_sec}"
+		kill -TERM "${pid}" || true
+		sleep 1
+		kill -KILL "${pid}" 2>/dev/null || true
+	fi
+}
+
+mozilla_pref() {
+	local pref_file="$1"
+	[ -f "${pref_file}" ]
+	local pref_key="$2"
+	local pref_val="$3"
+
+	local pref_regex="^user_pref\(\"${pref_key//\./\\.}\", \"([^\"]*)\"\);"
+	local pref_new="user_pref(\"${pref_key}\", \"${pref_val}\");"
+	if grep -qE "${pref_regex}" -- "${pref_file}"; then
+		sed -i -r "s/${pref_regex}/${pref_new}/" "${pref_file}"
+	else
+		echo "${pref_new}" >>"${pref_file}"
+	fi
+}
+
+config_thunderbird_pref() {
+	local pref_key="$1"
+	local pref_val="$2"
+
+	runwait 5 ".thunderbird" thunderbird
+
+	for prefs in "${HOME}/.thunderbird"/*/prefs.js; do
+		[ -f "${prefs}" ] || continue
+		mozilla_pref "${prefs}" "${pref_key}" "${pref_val}"
+	done
+}
+
+config_firefox_pref() {
+	local pref_key="$1"
+	local pref_val="$2"
+
+	runwait 5 ".mozilla/firefox" firefox
+
+	for prefs in "${HOME}/.mozilla/firefox"/*/prefs.js; do
+		[ -f "${prefs}" ] || continue
+		mozilla_pref "${prefs}" "${pref_key}" "${pref_val}"
+	done
+}
+
+config_firefox_files() {
+	# places.sqlite -> bookmarks
+	local file_bm="$1"
+	[ -f "${file_bm}" ]
+
+	runwait 5 ".mozilla/firefox" firefox
+
+	for user_dir in "${HOME}/.mozilla/firefox"/*; do
+		[ -d "${user_dir}" ] || continue
+		cp -- "${file_bm}" "${user_dir}/places.sqlite"
+	done
+}
+
+set_homepage() {
+	local home_page="$1"
+	config_firefox_pref "browser.startup.homepage" "${home_page}"
+}
+
+config_libreoffice() {
+	local xcu_ref="$1"
+	[ -f "${xcu_ref}" ]
+
+	runwait 10 ".libreoffice" libreoffice
+
+	for xcu_file in "${HOME}/.libreoffice"/*/user/registrymodification.xcu; do
+		[ -f "${xcu_file}" ] || continue
+		cp -- "${xcu_ref}" "${xcu_file}"
+	done
+}
+
+desktop_link() {
+	local desktop_file="/usr/local/share/applications/${1}.desktop"
+	[ -f "${desktop_file}" ]
+	local desktop_name="$(basename -- "${desktop_file}")"
+	local desktop_link
+
+	for desktop_dir in "${HOME}/Desktop" "${HOME}/Bureau"; do
+		[ -d "${desktop_dir}" ] || continue
+		desktop_link="${desktop_dir}/${desktop_name}"
+		if [ -e "${desktop_link}" ]; then
+			rm -rf -- "${desktop_link}"
+		fi
+		ln -s -- "${desktop_file}" "${desktop_link}"
+	done
+}
+
+purge_all() {
+	for config in .mozilla/firefox .thunderbird .libreoffice; do
+		rm -rf -- "${HOME}/${config}"
+	done
+}
+
+begin() {
+	set -e
+	exec 3<&0
+	exec 0</dev/tty
+}
+
+end() {
+	rm -f "${HOME}/.ash_history"
+	exec 0<&3
+	exec 3<&-
+}

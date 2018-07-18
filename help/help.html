@@ -1,0 +1,868 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Aide de l'installateur CLIP</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15">
+  <link rel="stylesheet" type="text/css" href="img/commonPrint.css">
+</head>
+<body>
+
+<h1><center>Aide de l'installeur CLIP</center></h1>
+
+<table id="toc" class="toc" summary="Sommaire"><tbody><tr><td><div id="toctitle"><h2>Sommaire</h2> </div>
+<ul>
+	<li class="toclevel-1"><a href="#simple">
+		<span class="tocnumber">1</span> <span class="toctext">Installation simple</span></a></li>
+	<ul>
+		<li class="toclevel-2"><a href="#simple-profile">
+			<span class="tocnumber">1.1</span> <span class="toctext">Profils d'installation</span></a></li>
+		<li class="toclevel-2"><a href="#simple-menus">
+			<span class="tocnumber">1.2</span> <span class="toctext">Interface générale de l'installeur</span></a></li>
+		<li class="toclevel-2"><a href="#simple-install">
+			<span class="tocnumber">1.3</span> <span class="toctext">Lancement d'une installation</span></a></li>
+		<li class="toclevel-2"><a href="#simple-edit">
+			<span class="tocnumber">1.4</span> <span class="toctext">Edition des profils de configuration</span></a></li>
+	</ul>
+	<li class="toclevel-1"><a href="#postinst">
+		<span class="tocnumber">2</span> <span class="toctext">Configuration post-installation</span></a></li>
+	<ul>
+		<li class="toclevel-2"><a href="#postinst-user">
+			<span class="tocnumber">2.1</span> <span class="toctext">Configurer les utilisateurs</span></a></li>
+		<li class="toclevel-2"><a href="#postinst-net">
+			<span class="tocnumber">2.2</span> <span class="toctext">Configurer les profils réseau</span></a></li>
+		<li class="toclevel-2"><a href="#postinst-netconst">
+			<span class="tocnumber">2.3</span> <span class="toctext">Configurer les adresses internes</span></a></li>
+		<li class="toclevel-2"><a href="#postinst-download">
+			<span class="tocnumber">2.4</span> <span class="toctext">Configurer les sources de mises à jour</span></a></li>
+		<li class="toclevel-2"><a href="#postinst-audit">
+			<span class="tocnumber">2.5</span> <span class="toctext">Configurer l'audit</span></a></li>
+		<li class="toclevel-2"><a href="#postinst-date">
+			<span class="tocnumber">2.6</span> <span class="toctext">Configurer la date et l'heure</span></a></li>
+	</ul>
+	<li class="toclevel-1"><a href="#profile">
+		<span class="tocnumber">3</span> <span class="toctext">Composition détaillée des profils de configuration</span></a></li>
+	<ul>
+		<li class="toclevel-2"><a href="#profile-params">
+			<span class="tocnumber">3.1</span> <span class="toctext">Paramètres d'installation</span></a></li>
+		<li class="toclevel-2"><a href="#profile-conf">
+			<span class="tocnumber">3.2</span> <span class="toctext">Paramètres dynamiques</span></a></li>
+	</ul>
+	<li class="toclevel-1"><a href="#advanced">
+		<span class="tocnumber">4</span> <span class="toctext">Installation avancée</span></a></li>
+	<ul>
+		<li class="toclevel-2"><a href="#advanced-external">
+			<span class="tocnumber">4.1</span> <span class="toctext">Utilisation de profils de configuration externes</span></a></li>
+		<li class="toclevel-2"><a href="#advanced-install">
+			<span class="tocnumber">4.2</span> <span class="toctext">Scripts post-installation</span></a></li>
+		<li class="toclevel-2"><a href="#advanced-user">
+			<span class="tocnumber">4.3</span> <span class="toctext">Scripts de création d'utilisateur</span></a></li>
+		<li class="toclevel-2"><a href="#advanced-extrapkg">
+			<span class="tocnumber">4.4</span> <span class="toctext">Installation de paquetages supplémentaires</span></a></li>
+	</ul>
+</ul>
+</td></tr></tbody></table>
+
+<h2><u><a name="simple">Installation simple</a></u></h2>
+
+<h3><a name="simple-profile">Profils d'installation</a></h3>
+
+<p>
+L'installeur CLIP fonctionne selon un mode non interactif : une fois une installation
+lancée, aucune intervention de l'utilisateur n'est nécessaire jusqu'à la fin de 
+l'installation. A l'issue de celle-ci, le poste CLIP est entièrement configuré et peut
+être directement redémarré. 
+</p>
+
+<p>
+En l'absence d'interaction avec l'utilisateur, l'installeur CLIP utilise pour la configuration
+du poste des profils prédéfinis, précédemment copiés sur le support d'installation. Deux profils
+distincts sont nécessaires pour une installation :
+</p>
+
+<ul>
+	<li>Un <b>profil matériel</b> correspondant à la configuration matérielle du poste sur
+	lequel le système va être installé. Ce profil, typiquement identifié par un nom de 
+	fabriquant et un modèle, par exemple <i>DELL_Latitude_D520</i>, définit les adaptations 
+	du système CLIP permettant de supporter ce matériel : pilotes de périphériques à charger,
+	résolution par défaut de l'écran, etc.
+	</li>
+	<li>Un <b>profil de configuration</b> définissant les éléments de configuration du poste
+	qui ne dépendent pas du matériel, notamment la configuration réseau initiale, les comptes
+	utilisateur à créer ou encore les applications optionnelles à installer. Ce profil contient
+	également les différents éléments cryptographiques (clés privées, certificats, etc...) propres
+	au poste.
+	</li>
+</ul>
+
+<p>
+La liste des profils matériels fait partie intégrante de l'installeur et n'est pas modifiable. L'ajout
+d'un nouveau profil matériel est du ressort de l'équipe de développement CLIP, qui doit au préalable 
+procéder à la validation du fonctionnement de CLIP sur le nouveau matériel. En revanche, les profils
+de configuration sont librement modifiables et personnalisables avant le lancement de l'installation,
+comme détaillé <a href="#simple-edit">plus bas</a>.
+</p>
+
+<h3><a name="simple-menus">Interface générale de l'installeur</a></h3>
+
+<p>
+Après un démarrage normal du support d'installation, celui-ci lance automatiquement une interface graphique
+de configuration. Cette interface comporte initialement une barre de menu au sommet de l'écran, ainsi qu'une
+application lancée automatiquement à l'ouverture de session. Cette dernière correspond à l'interface de 
+lancement d'une installation simple, décrite <a href="#simple-install">plus bas</a>.
+</p>
+
+
+
+<p>La barre de menu située au sommet de l'écran comprend deux menus principaux, à son extrémité gauche :</p>
+<ul>
+	<li><b>Le menu d'utilisation</b> : le plus à gauche, qui permet :</li>
+	<ul>
+		<li>de relancer l'interface d'installation, normalement affichée automatiquement au démarrage :
+		action <i>Installeur CLIP</i>; 
+		</li> 
+		<li>de consulter l'aide de l'installeur (présent document) : 
+		action <i>Aide de l'installeur CLIP</i>; 
+		</li>
+		<li>de lancer un terminal pour réaliser des opérations avancées en ligne de commande :
+		action <i>Terminal</i>;
+		<li>ou enfin d'arrêter ou redémarrer le poste à l'issue de l'installation : 
+		sous-menu <i>Quitter</i>. On notera qu'il n'est pas souhaitable de retirer le support d'installation
+		avant l'arrêt complet du poste.
+		</li>
+	</ul>
+<div class="center"><div class="floatnone">
+	<span><img alt="Menu d'utilisation" src="img/menu1.png" border="0"></span>
+</div></div>
+
+	<li><b>Le menu de configuration</b> : immédiatement à droite du précédent, permettant quant à lui:</li>
+	<ul>
+		<li>de réaliser différentes actions de  paramétrage post-installation du système CLIP, comme 
+		décrit <a href="#postinst">plus bas</a> : sous-menu <i>Paramétrage post-installation</i>; 
+		</li>
+		<li>d'éditer les profils de configuration présents sur le support d'installation, à l'aide de
+		l'<a href="#simple-edit">éditeur de profils de configuration</a> : action <i>Editer les profils 
+		d'installation</i>;
+		</li>
+		<li>de modifier l'heure et la date du poste (les nouvelles valeurs sont conservées après un
+		redémarrage) : action <i>Configurer la date et l'heure</i>.</li>
+	</ul>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Menu de configuration" src="img/menu2.png" border="0"></span>
+</div></div>
+
+</ul>
+
+<p>
+La partie droite de la barre de menu comprend également une horloge (qui indique l'heure système du poste) et un
+moniteur de batterie, afin de suivre la charge des éventuelles batteries du poste.
+</p>
+
+
+<h3><a name="simple-install">Lancement d'une installation</a></h3>
+
+<p>
+L'interface d'installation simple est affichée automatiquement au démarrage du mode graphique. Elle permet de
+lancer l'installation d'un système CLIP après avoir choisi les profils d'installation correspondants. 
+Cette interface graphique offre quatre menus de choix, répartis comme suit de gauche à droite :
+</p>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Interface d'installation" src="img/clip-install-gui.png" border="0"></span>
+</div></div>
+
+<ul>
+	<li><b>Choix du type d'installation</b> : un même support d'installation peut permettre d'installer
+	plusieurs types de configurations CLIP : client, passerelle de mise à jour ou de messagerie. Le cas
+	échéant, le choix peut être réduit à un seul élément, typiquement "Client", lorsque le support d'installation
+	ne permet d'installer qu'un seul type de configuration. On notera que le choix "Client" correspond aussi bien
+	à un client mononiveau que biniveau, le choix des niveaux étant un des paramètres du profil de configuration.
+	</li>
+	<li><b>Choix du profil de configuration</b> : le menu déroulant permet de choisir un <i>profil de configuration</i>
+	parmi ceux présents sur le support d'installation. L'interface d'installation simple ne permet que de choisir, 
+	et pas de modifier, le profil de configuration. L'utilisateur souhaitant modifier un profil de configuration 
+	devra pour ce faire lancer l'<a href="#simple-edit">éditeur de profils de configuration</a> avant de procéder
+	à l'installation.
+	</li>
+	<li><b>Choix du profil matériel</b> : un second menu déroulant permet de choisir l'un des <i>profils matériels</i>
+	reconnus par l'installeur.
+	</li>
+	<li><b>Choix du disque d'installation</b> : cette liste correspond aux différents disques durs détectés par 
+	l'installeur et susceptibles d'accueillir une installation du système CLIP. Elle est dans la plupart des cas 
+	limitée à un seul disque (typiquement <i>/dev/sdb</i>, premier disque dur <i>SATA</i> du poste), mais peut dans
+	certaines configurations matérielles en contenir plusieurs. Dans le doute, il est recommandé de sélectionner
+	le premier disque de la liste. On notera que la liste permet de sélectionner plusieurs disques simultanément :
+	ce cas d'usage est réservé à l'installation de passerelles dans une configuration <i>RAID</i> logicielle.
+	</li>
+</ul>
+
+<p>
+Une fois l'ensemble des quatre paramètres correctement définis, l'interface permet de lancer une installation en cliquant
+sur le bouton "Lancer l'installation" (qui reste grisé tant que certains paramètres n'ont pas été définis). L'installation 
+proprement dite se déroule alors dans une nouvelle fenêtre intitulée <i>Installation CLIP</i>, affichant les messages 
+d'information de l'installeur. A l'issue de l'installation (ligne finale <i>CLIP was correctly installed</i> dans 
+la fenêtre de messages), cette fenêtre de messages ne se ferme pas automatiquement. Il est nécessaire de la fermer 
+explicitement pour revenir à l'interface d'installation initiale. On perd alors les différents messages d'installation.
+</p>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Fenêtre de messages à l'issue de l'installation" src="img/clip-install-done.png" border="0"></span>
+</div></div>
+
+<i>
+<p>
+L'installation d'un système CLIP complet en configuration cliente peut être assez longue, car elle correspond en pratique à
+l'installation de plusieurs environnements logiciels complets et indépendants : un pour le socle et un pour chaque cage RM (une 
+ou deux selon la configuration mono- ou biniveau). Chacun de ces environnements est de plus installé deux fois, car un système
+CLIP comprend initialement deux installations complètes redondantes. Cette redondance permet par la suite une meilleur robustesse
+des mises à jour : une seule installation est mise à jour à la fois, l'autre restant disponible et intègre en cas de problème dans
+la mise à jour. 
+</p>
+<p>
+Dans l'ensemble, il faut compter environ une demi-heure pour l'installation complète d'un système client CLIP, voire plus si un grand
+nombre de paquetages optionnels doit être installé ou si des partitions utilisateur de grande taille doivent être initialisées. La durée
+exacte  est évidemment aussi fonction de la configuration matérielle (vitesse du disque, du processeur, etc.).
+</p>
+</i>
+
+
+<h3><a name="simple-edit">Edition des profils de configuration</a></h3>
+
+<p>
+Les <i>profils de configuration</i> peuvent être édités à l'aide d'une interface dédiée, l'éditeur de profils de configuration, accessible
+à travers le <i>menu de configuration</i>. Cette interface comprend deux zones principales : 
+</p>
+<ul>
+	<li>A gauche, une liste des profils de configuration présents sur le support d'installation, permettant de choisir le profil à éditer.
+	Les profils sont listés par ordre alphabétique et le premier profil de la liste est sélectionné automatiquement au lancement de 
+	l'éditeur.
+	</li>
+	<li>A droite, une zone d'édition du profil sélectionné, comportant plusieurs onglets de configuration et les boutons permettant de sauver
+	le profil courant, de le supprimer ou de le copier.
+	</li>
+</ul>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Interface d'édition des profils de configuration" src="img/clip-install-config-general.png" border="0"></span>
+</div></div>
+
+<p>
+Les différents onglets de la zone d'édition permettent de visualiser et éditer les principales propriétés du profil courant. Ces onglets sont
+décrits ci-dessous.
+</p>
+
+<h4>Cages RM</h4>
+<p>
+Ce premier onglet permet de définir le nombre et la nature des <i>cages RM</i> (environnements utilisateurs cloisonnés du reste du système) à
+installer avec ce profil, et ainsi de choisir une configuration client biniveau, client mononiveau ou passerelle. Deux types de clients mononiveau
+sont supportés :
+</p>
+<ul>
+	<li>Niveau haut uniquement : dans cette configuration, l'environnement d'utilisation n'accédera au réseau que moyennant un chiffrement 
+	systématique des flux, nécessitant la mise en place d'une passerelle permettant leur déchiffrement (de type <i>passerelle RM</i> ou
+	"passerelle de messagerie").
+	</li>
+	<li>Niveau bas uniquement : dans ce cas, l'environnement d'utilisation accède directement au réseau, sans chiffrement.</li>
+</ul>
+
+<h4>Onglet de configuration passerelle</h4>
+<p>
+Cet onglet n'est présent que pour une configuration de type passerelle (sans cage RM), et permet d'ajuster certains paramètres spécifiques à ce cas 
+d'emploi : 
+</p>
+<ul>
+	<li>Le nombre d'interfaces : normalement 2 (<i>eth0</i> étant l'interface externe, sur laquelle aboutissent les tunnels IPsec, et <i>eth1</i>
+	l'interface interne), mais la mise en oeuvre d'une troisième interface <i>eth2</i> (typiquement pour l'administration) est également possible.
+	</li>
+	<li>Le choix de l'interface réseau de téléadministration (utilisée, si le poste est configuré comme tel, pour le déport des journaux et 
+	l'administration à distance par SSH) : soit l'interface externe (à travers un tunnel IPsec établi avec une autre passerelle), soit l'interface 
+	interne sans IPsec, soit le cas échéant l'interface dédiée d'administration.
+	</li>
+	<li>Le choix de l'interface réseau utilisée pour le téléchargement de mises à jour : soit l'interface externe (à travers un tunnel IPsec établi 
+	avec une autre passerelle), soit l'interface interne sans IPsec (cas d'une passerelle de mise à jour).
+	</li>
+	<li>Le support de la téléadministration d'un réseau client (option <i>Passerelle de téléadministration</i>). Lorsque cette option est activée, 
+	la passerelle accepte de transmettre des flux SSH de son réseau interne à destination de postes clients joignables par son interface externe
+	via un tunnel IPsec. On notera que le tunnel IPsec doit avoir au préalable été établi par chaque client.
+	</li>
+</ul>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Onglet configuration de passerelle" src="img/clip-install-config-gtw.png" border="0"></span>
+</div></div>
+
+<h4>Gestion des périphériques</h4>
+<p>
+Cet onglet permet d'attribuer différents périphériques matériels à un ou plusieurs compartiments logiciels (correspondant à des niveaux de sensibilité
+différents). Il est plus particulièrement adapté au cas de configurations clientes biniveau, bien que certains choix restent pertinents pour des 
+configurations mononiveau ou passerelle. Plus précisément, les choix offerts sont les suivants :
+</p>
+<ul>
+	<li><b>Attribution de la carte son</b> : la carte son d'un poste CLIP ne peut être attribuée qu'à un seul environnement d'utilisation (cage RM)
+	à la fois. Cette attribution est définie à l'installation de manière définitive : elle n'est plus ensuite modifiable par l'administrateur du 
+	poste, dans la mesure où la réaffectation dynamique de la carte son introduirait des problèmes de sécurité (rupture du cloisonnement multiniveau).
+	</li>
+	<li><b>Attribution de l'imprimante USB</b> : de même, les imprimantes USB connectées à un poste CLIP sont systématiquement rendues disponibles dans
+	une seule cage RM à la fois, et le choix de cette cage est réalisé de manière définitive lors de l'installation du poste. On notera bien que les 
+	imprimantes réseau ne sont pas concernées par ce choix : il est possible d'utiliser de telles imprimantes dans les deux cages RM d'un poste CLIP
+	biniveau, sous réserve que chaque imprimante soit accessible au niveau réseau par la cage RM concernée.
+	</li>
+	<li><b>Autorisation des supports USB signés non chiffrés</b> : les postes CLIP supportent trois types de supports de stockage amovibles USB : les 
+	supports chiffrés et signés pour un niveau de sensibilité donné, les supports signés pour un niveau et non chiffrés, et les supports qui n'ont 
+	pas été spécifiquement initialisés pour CLIP. Les supports chiffrés et signés sont toujours autorisés pour tous les niveaux. En revanche, 
+	l'utilisation de support signés non chiffrés à un niveau donné doit faire l'objet d'une autorisation spécifique, définie de manière irrévocable 
+	à l'installation.  Ce menu permet de sélectionner les niveaux de sensibilité (CLIP, RM_H ou RM_B) pour lesquels de tels supports sont autorisés.
+	</li>
+	<li><b>Accès en écriture aux supports USB non signés</b> : les supports USB non spécifiquement initialisés pour CLIP sont autorisés à tous les 
+	niveaux de sensibilité, mais uniquement en lecture seule. Il est cependant possible, lors de l'installation, de définir les niveaux autorisés à
+	accéder en écriture à de tels supports. Ce menu permet de sélectionner ces niveaux.
+	</li>
+</ul>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Onglet gestion des périphériques" src="img/clip-install-config-devices.png" border="0"></span>
+</div></div>
+
+
+<h4>Comptes utilisateurs</h4>
+<p>
+Cet onglet offre la possibilité de définir les comptes utilisateurs à créer initialement lors de la procédure d'installation. Il supporte les différents
+types de comptes du système CLIP : utilisateurs normaux, nomades ou privilégiés, administrateurs et auditeurs. Un mot de passe est attribué initialement 
+à chaque compte créé. Il est recommandé de changer ce mot de passe après redémarrage sur le système CLIP proprement dit. On notera par ailleurs que même 
+si aucun compte n'est créé lors de l'installation proprement dite, il reste possible d'en créer à l'issue de celle-ci à l'aide
+des <a href="#postinst-user">outils de paramétrage post-installation</a>. 
+</p>
+<p>
+<i>
+<b>Attention</b> : A la différence de l'outil de création de compte utilisateur du système CLIP 
+lui-même, ou de celui, équivalent, utilisé en post-installation, l'éditeur de profils de configuration ne prend pas en compte lors de la définition des 
+tailles de partitions utilisateur la taille effectivement disponible sur le disque (qui dépend du matériel et n'est généralement pas connue lors de 
+l'édition du profil). Il est donc possible de définir des comptes utilisateurs qui ne pourront au final pas être créés lors de l'installation, faute 
+de place suffisante pour créer les partitions associées.
+</i>
+</p>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Onglet comptes utilisateurs" src="img/clip-install-config-user.png" border="0"></span>
+</div></div>
+
+<h4>Paramètres réseau</h4>
+<p>
+La configuration du réseau sous CLIP repose sur la notion de <i>profil réseau</i>. Un profil réseau correspond à l'ensemble des paramètres d'une connexion
+réseau : type d'interface à utiliser, mode d'adressage, route par défaut, configuration du pare-feu. Un poste CLIP peut disposer de plusieurs profils 
+réseau distincts, lui permettant de basculer d'un mode de connexion à un autre à la demande de l'utilisateur, sans reconfiguration particulière.
+</p>
+
+<p>
+Le profil de configuration utilisé lors de l'installation définit deux types de paramètres réseau : les paramètres "constants" d'une part, 
+qui ne dépendent pas du profil réseau, et les profils réseau eux-mêmes. Les paramètres dits constants correspondent aux adresses internes des différents
+compartiments logiciels (cages RM et compartiments de service du socle CLIP), qui n'ont pas de raison de dépendre du profil réseau. Ces paramètres restent
+éditables par l'administrateur du poste après son installation, mais uniquement à travers une manipulation avancée. Il n'y a en effet pas de raison en 
+général de modifier ces adresses, et la manipulation n'est pas recommandée. A contrario, l'édition des profils réseau constitue une tâche d'administration
+courante.
+</p>
+
+<p>L'onglet "Paramètres réseau" de l'éditeur de profils de configuration permet de configurer directement les différentes adresses internes (paramètres 
+constants) par des champs de saisie appropriés. Il offre de plus la possibilité de configurer les profils réseau initialement créés lors de l'installation, en lançant l'éditeur classique de profils réseau (identique à celui utilisé ultérieurement par l'administrateur du poste), en cliquant sur le bouton 
+"Editer les profils réseau"
+</p>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Onglet paramètres réseau" src="img/clip-install-config-net.png" border="0"></span>
+</div></div>
+
+<h4>Paquetages optionnels RM_H / RM_B</h4>
+<p>
+Un onglet de choix de paquetages optionnels est proposé pour chaque cage RM retenue dans le profil de configuration (en fonction du choix fait dans 
+l'onglet "Cages RM"). Chacun de ces onglets présente la liste des paquetages optionnels disponnibles à l'installation, et permet de sélectionner 
+ceux à installer effectivement, en cochant les lignes correspondantes. Les paquets sélectionnés sont affichés en bleu, les autres en noir.
+</p>
+
+<p><i>
+Il est normal que certains paquetages optionnels ne soient proposés que dans une des deux cages, RM_H ou RM_B.
+</i></p>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Onglet paquetages optionnels" src="img/clip-install-config-pkg.png" border="0"></span>
+</div></div>
+
+<h4>Sources de mises à jour</h4>
+<p>
+Cet onglet permet de définir la manière dont CLIP procédera à la récupération de paquetages de mise à jour. Pour chaque cage concernée (CLIP, et 
+éventuellement RM_H et/ou RM_B), trois choix sont possibles :
+</p>
+<ul>
+	<li><i>Réseau</i> : les mises à jour sont téléchargées auprès d'un serveur HTTPS, accessible depuis la cage UPDATE du poste (c'est-à-dire
+	à travers le tunnel IPsec UPDATE). L'adresse du serveur doit dans ce cas être précisée dans le champ de saisie associé à ce choix.
+	</li>
+	<li><i>USB</i> : les mises à jour sont copiées depuis un support amovible USB monté (sous <i>/mnt/usb</i>) dans la cage UPDATE.</li>
+	<li><i>CD-ROM</i> : les mises à jour sont copiées depuis un CD-ROM monté (sous <i>/mnt/cdrom</i>) dans la cage UPDATE.</li>
+</ul>
+<p>
+Plusieurs sources de mises à jour peuvent être sélectionnées simultanément pour chaque cage. Dans ce cas, la source la plus à jour sera systématiquement
+utilisée. La non-disponibilité d'une source à un moment donné n'empêche pas la récupération de mises à jour auprès des autres sources.
+</p>
+
+<div class="center"><div class="floatnone">
+	<span><img alt="Onglet sources de mises à jour" src="img/clip-install-config-download.png" border="0"></span>
+</div></div>
+
+<p>
+On notera enfin que certaines options avancées des profils de configuration ne peuvent à ce stade pas être modifiées à l'aide de l'interface 
+graphique d'édition. Celles-ci sont décrites de manière plus précise dans la section consacrée à la <a href="#profile">composition détaillée</a>
+de ces profils.
+</p>
+
+<h2><u><a name="postinst">Configuration post-installation</a></u></h2>
+
+<p>
+Outre l'installation proprement dite, le support d'installation CLIP permet également de réaliser certaines opérations de configuration sur 
+un poste CLIP déjà installé, à travers des interfaces similaires à celles proposées à l'administrateur d'un système CLIP. 
+Ces opérations sont applicables aussi bien immédiatement après l'installation d'un nouveau système CLIP qu'après avoir démarré le support
+d'installation sur un poste CLIP précédemment installé (sous réserve que le système CLIP installé sur ce dernier soit suffisamment à jour).
+Elles ne sont en revanche en général pas réalisables avant l'installation du poste - l'opération correspondante doit dans ce cas être réalisée
+avec l'<a href="#simple-edit">éditeur de profils de configuration</a>.
+</p>
+
+<p>
+Les actions de post-installation sont pour la plupart accessibles à travers le sous-menu "Paramétrage post-installation" du <i>menu de configuration</i>,
+à l'exception de la configuration de la date et de l'heure, disponible directement dans le menu de configuration, pour des raisons détaillées plus bas.
+</p>
+
+<h3><u><a name="postinst-user">Configurer les utilisateurs</a></u></h3>
+
+<p>
+Cette opération permet de gérer les comptes utilisateurs du système CLIP, comme pourrait le faire l'administrateur du poste. Il est ainsi possible
+de créer, supprimer, verrouiller ou déverrouiller tous types de comptes. Contrairement à la création d'utilisateurs à travers le profil de configuration,
+cette interface tient compte de l'espace disque effectivement disponible pour limiter la taille des partitions utilisateur qui peuvent être créées.
+</p>
+
+<p>
+Il n'est en revanche pas possible à ce stade de modifier en post-installation le mot de passe d'un compte existant. Cette opération ne peut, 
+pour des raisons de sécurité, être réalisée que par l'utilisateur concerné, après ouverture de sa session sur le poste CLIP (avec l'ancien 
+mot de passe).
+</p>
+
+<h3><u><a name="postinst-net">Configurer les profils réseau</a></u></h3>
+
+<p>
+Cette opération donne accès à l'éditeur de profils réseau, pour modifier les profils de connexion du poste installé. 
+</p>
+
+<h3><u><a name="postinst-netconst">Configurer les adresses internes</a></u></h3>
+
+<p>
+Permet de configurer les adresses internes des compartiments logiciels (cages) du système CLIP, qui ne dépendent pas du profil réseau utilisé.
+</p>
+
+<h3><u><a name="postinst-download">Configurer les sources de mises à jour</a></u></h3>
+
+<p>
+Permet de configurer, cage par cage, les sources à utiliser pour la récupération des mises à jour du système CLIP : source réseau (HTTPS), support USB,
+ou CD-ROM.
+</p>
+
+<h3><u><a name="postinst-audit">Configurer l'audit</a></u></h3>
+
+<p>
+Permet de configurer la rotation des journaux d'activité, et leur déport éventuel à travers le réseau, vers un serveur de collecte.
+</p>
+
+
+<h3><u><a name="postinst-date">Configurer la date et l'heure</a></u></h3>
+
+<p>
+Il est possible de configurer la date et l'heure du poste à travers deux interfaces de saisie successives. Cette action n'est pas classée dans le
+sous-menu "Paramétrage post-installation" car, à la différence des autres, elle est également possible alors qu'aucun système CLIP n'est installé 
+sur le poste. Il est d'ailleurs recommandé de modifier la date et l'heure du poste, si nécessaire, avant de procéder à l'installation plutôt qu'après.
+Un changement important de date juste après l'installation pourrait en effet entraîner une vérification longue et inutile de l'intégrité des disques 
+au premier démarrage du système CLIP (comportement standard du système après une longue période sans vérification).
+</p>
+
+<h2><u><a name="profile">Composition détaillée des profils de configuration</a></u></h2>
+
+<p>
+Comme évoqué plus haut, certains éléments des <i>profils de configuration</i> ne sont pas modifiables à ce stade à l'aide de 
+l'<a href="#simple-edit">éditeur graphique</a>. La présente section donne une description plus précise du contenu d'un profil de configuration, à 
+l'attention des utilisateurs avancés qui souhaiteraient modifier ces éléments inaccessibles par l'interface classique, ou créer des profils de toute
+pièce (par exemple dans un script).
+</p>
+
+<p>
+Les profils de configuration sont stockés dans le répertoire <i>/mnt/cdrom/config</i> de l'arborescence de l'installeur. Ce répertoire est accessible
+sous le chemin <i>/config</i> lorsque le support d'installation est monté comme support de stockage. Chaque sous-répertoire de <i>/mnt/cdrom/config/</i> 
+est considéré par l'installeur comme un profil de configuration.  Un profil de configuration est lui-même composé d'une arborescence de fichiers, répartis
+entre deux sous-répertoires du profil selon leur nature. Le sous-répertoire <i>conf</i> contient des fichiers de configuration qui peuvent également être
+modifiés après l'installation, par un administrateur du système CLIP. Ces éléments modifiables, qui correspondent à des valeurs initiales de la
+configuration dynamique du système, sont désignés sous le nom de <b>paramètres dynamiques</b>. Au contraire, le sous-répertoire <i>params</i> contient des 
+éléments (fichiers de configuration, mais également paramètres de scripts post-installation), dits <b>paramètres d'installation</b>, qui ne sont plus 
+modifiables après l'installation.
+</p>
+
+<h3><u><a name="profile-params">Paramètres d'installation</a></u></h3>
+
+<p>
+Les <i>paramètres d'installation</i> sont répartis entre la racine du répertoire <i>params</i> et des sous-répertoires de ce dernier.
+</p>
+
+<h4>Fichiers à la racine de <i>params</i></h4>
+
+<p>
+Deux fichiers de configuration peuvent apparaître à la racine de <i>params</i> :
+</p>
+<ul>
+	<li><i>cryptd.algos</i> : fichier de configuration qui liste les bibliothèques cryptographiques CCSD utilisables par le service de diode 
+	cryptographique, à raison d'une bibliothèque par ligne, désignée par son "nom d'algorithme".
+	Les bibliothèques correspondantes doivent être effectivement installées sur le poste.
+	</li>
+	<li><i>usbkeys.conf</i> : fichier de configuration de la gestion des supports amovibles. Ce fichier est normalement modifié à travers 
+	l'onglet <i>Gestion des périphériques</i> de l'<a href="simple-edit">éditeur de profils</a>.
+	</li>
+</ul>
+
+<p>
+A ces fichiers "standard" peuvent éventuellement s'ajouter des fichiers <i>extra.{clip,rm_h,rm_b}.core</i> permettant d'installer des paquetages 
+supplémentaires dans une configuration de test ou de développement, comme décrit <a href="#advanced-extrapkg">plus bas</a>.
+</p>
+
+<h4>Configuration des utilisateurs</h4>
+
+<p>
+Le fichier <i>params/users.list</i>, lorsqu'il est présent, définit une liste de comptes utilisateur à créer lors de l'installation. Il contient
+une définition de compte par ligne, chaque ligne étant composée de plusieurs champs séparés par des espaces, sous la forme :
+<pre>
+&lt;nom&gt; &lt;type&gt; &lt;mot de passe&gt; &lt;taille RMH&gt; &lt;taille RMB&gt;
+</pre>
+</p>
+<p>
+Le champ <i>type</i> peut prendre les valeurs suivantes :
+</p>
+<ul>
+	<li><i>admin</i> : compte administrateur.</li>
+	<li><i>audit</i> : compte auditeur.</li>
+	<li><i>user</i> : compte utilisateur standard.</li>
+	<li><i>privuser</i> : compte utilisateur privilégié.</li>
+	<li><i>nomad</i> : compte utilisateur nomade.</li>
+</ul>
+
+<p>
+Les champs <i>taille RMH</i> et <i>taille RMB</i> correspondent aux tailles en mégaoctets des partitions utilisateur du compte dans RM_H et RM_B 
+respectivement. Ils doivent toujours être définis, même en l'absence de cages RM ou pour des comptes sans partitions RM (administrateur ou auditeur). Ils
+peuvent dans ce cas être laissés à <i>0</i>. La taille de partition CLIP n'est pas ajustable.
+</p>
+
+<p>
+On notera que les mots de passe des comptes apparaissent en clair dans ce fichier de configuration. Il est par conséquent primordial de modifier au plus 
+tôt ces mots de passe à l'issue de l'installation.
+</p>
+
+<p>
+Ce fichier est normalement édité à l'aide de l'onglet <i>Comptes utilisateur</i> de l'éditeur de profils. De manière alternative, moins automatique 
+mais généralement préférable du point de vue de la sécurité, les comptes utilisateur peuvent être créés en <a href="#postinst-user">post-installation</a>.
+</p>
+
+
+<h4>Fichiers de configuration</h4>
+
+<p>
+Le sous-répertoire <i>params/conf.d</i> contient un certain nombre de fichiers de configuration permanents du socle CLIP, plus précisément :
+</p>
+<ul>
+	<li><i>clip</i> : fichier contenant la définition de la variable <i>CLIP_JAILS</i>, qui liste les cages RM présentes sur le système,
+	aucune, RM_H, RM_B, ou les deux. Il est normalement modifié à l'aide de l'onglet <i>Cages RM</i> de l'éditeur de profils.
+	</li>
+	<li><i>printers</i> : contient la définition du chemin sous-lequel exposer les imprimantes USB, permettant de définir la cage RM dans
+	laquelle ces imprimantes seront utilisables. Il est normalement modifié à l'aide de l'onglet <i>Gestion des périphériques</i> de l'éditeur 
+	de profils.
+	</li>
+	<li><i>sound</i> : contient la définition du chemin sous-lequel exposer les cartes son, permettant de définir la cage RM dans
+	laquelle ces périphériques seront utilisables. Il est normalement modifié à l'aide de l'onglet <i>Gestion des périphériques</i> de l'éditeur 
+	de profils.
+	</li>
+	<li><i>usermgmt</i> : contient la définition de la variable <i>ALLOW_PRIV_USER</i>, qui autorise (valeur <i>yes</i>) ou interdit (<i>no</i>)
+	la création de comptes utilisateur privilégié et nomade (les autres types de comptes, utilisateur standard, administrateur et auditeur, 
+	sont toujours autorisés).
+	</li>
+</ul>
+
+<h4>Clés IPsec permanentes</h4>
+
+<p>
+Le sous-répertoire <i>params/ike2_cert</i> contient les trousseaux de clés publiques ACID associés aux passerelles IPsec CLIP avec lesquelles le poste
+sera amené à communiquer. Trois fichiers peuvent être présents :
+</p>
+<ul>
+	<li><i>update.ppr</i> : trousseau de clés publiques de la passerelle de mise à jour, pour le téléchargement en ligne des mises à jour CLIP (non
+	nécessaire sur une configuration elle-même de type passerelle de mise à jour).
+	</li>
+	<li><i>rmh.ppr</i> : clés de la passerelle de messagerie RM_H, si cette cage est présente sur le système.
+	</li>
+	<li><i>admin.ppr</i> : clés de la passerelle de téléadministration et de collecte des journaux, si une telle passerelle est mise en oeuvre.
+	</li>
+</ul>
+
+<h4>Clés publiques pour l'export des clés de supports USB</h4>
+
+<p>
+Les clés cryptographiques utilisées pour le chiffrement et la signature des supports amovibles USB sont générées directement sur le système, par chaque
+utilisateur. Elles peuvent ensuite être exportées sur un support amovible, protégées par un chiffrement asymétrique RSA. Les clés publiques utilisées 
+pour ce chiffrement lors de l'export sont des paramètres d'installation, et sont stockées dans le sous-répertoire <i>params/usb_keys</i> du profil 
+de configuration. Les clés publiques étant chacune spécifique à un niveau, les fichiers suivants peuvent être présents dans le sous-répertoire :
+</p>
+<ul>
+	<li><i>clip.pub</i> : clé publique pour l'export des clés de niveau CLIP.</li>
+	<li><i>rm_h.pub</i> : clé publique pour l'export des clés de niveau RM_H.</li>
+	<li><i>rm_b.pub</i> : clé publique pour l'export des clés de niveau RM_B.</li>
+</ul>
+
+<p>
+D'autres fichiers peuvent être présents dans ce répertoire (par exemple clés privées et mot de passes associés), ils ne seront pas installés sur le
+système CLIP dès lors que leur nom ne se termine pas par <i>.pub</i>. La présence des clés privées d'export USB sur le poste CLIP n'est ni nécessaire, 
+ni souhaitable du point de vue de la sécurité.
+</p>
+
+<h3><u><a name="profile-conf">Paramètres dynamiques</a></u></h3>
+
+<p>
+De même, les fichiers de <i>paramètres dynamiques</i> sont répartis entre la racine et les sous-répertoires du répertoire <i>conf</i>.
+</p>
+
+<h4>Fichiers de configuration</h4>
+
+<p>
+La racine du répertoire <i>conf</i> est susceptible de contenir les fichiers suivants 
+</p>
+<ul>
+	<li><i>optional.rm_h</i>,<i>optional.rm_b</i>, <i>optional.clip</i> : ces fichiers listent les paquetages optionnels à installer initialement
+	dans chacun des trois niveaux de sécurité. Chaque fichier doit contenir un nom de paquetage par ligne. Ces fichiers sont normalements
+	modifiés à l'aide des onglets <i>Paquetages optionnels</i> de l'éditeur de profils.
+	</li>
+	<li><i>net</i> : contient les définitions d'adresses internes des cages du système (paramètres réseau "constants"), normalement configurées
+	dans l'onglet <i>Paramètres réseau</i> de l'éditeur de profils.
+	</li>
+	<li><i>logfiles</i> : fichier de configuration de l'archivage des fichiers de journaux, qui prend la forme suivante :
+	<pre>
+	KEEP_FILES_NUMBER=&lt;nombre d'archives à conserver&gt;
+	KEEP_FILES_SIZE=&lt;taille en kilo-octets au dessus de laquelle 
+	                    les journaux sont archivés&gt;
+	</pre>
+	</li>
+	<li><i>ntp</i> : fichier de configuration de la synchronisation horaire par le réseau, sous la forme suivante :
+	<pre>
+	USE_NTP=&lt;yes ou no&gt;
+	NTP_SERVER=&lt;adresse IP ou nom d'hôte&gt;
+	</pre>
+	La première variable active la synchronisation périodique lorsqu'elle est positionnée à "yes", la deuxième donne l'adresse du serveur NTP auprès
+	duquel se synchroniser (qui doit être joignable par la cage UPDATE).
+	</li>
+</ul>
+
+<h4>Configuration des téléchargements de mises à jour</h4>
+
+<p>
+Le sous-répertoire <i>conf/clip_download</i> contient les définitions de sources pour le téléchargement de mises à jour logicielles, dans trois (ou moins, 
+en l'absence de cages RM) fichiers au format <i>sources.list Debian</i> :
+</p>
+<ul>
+	<li><i>sources.list.clip</i> : mises à jour CLIP.</li>
+	<li><i>sources.list.rm_h</i> : mises à jour RM_H.</li>
+	<li><i>sources.list.rm_h</i> : mises à jour RM_B.</li>
+</ul>
+
+<p>
+Ces sources de téléchargement sont normalement configurées à travers l'onglet <i>Sources de mises à jour</i> de l'éditeur de profils.
+</p>
+
+<h4>Clés IPsec</h4>
+
+<p>
+Le sous-répertoire <i>conf/ike2_cert</i> contient la clé privée ACID utilisée par le poste pour ses connexions IPsec, lorsque de telles connexions sont
+mises en oeuvre. Deux fichiers doivent dans ce cas être présents :
+</p>
+<ul>
+	<li><i>ccsd.pvr</i> : trousseau de clés privées ACID du poste.</li>
+	<li><i>ccsd.pwd</i> : fichier contenant le mot de passe du trousseau.</li>
+</ul>
+
+<p>
+Dans une configuration de type passerelle, les trousseaux de clés publiques ACID correspondant aux clients qui établiront des tunnels IPsec avec la 
+passerelle peuvent également être placés dans ce répertoire, dans des fichiers ayant pour nom le <i>Subject Name</i> des clés qu'ils contiennent : 
+<i>&lt;Subject_Name&gt;.ppr</i>.
+</p>
+
+<p>
+A la différence des clés publiques de passerelles décrites plus haut parmi les paramètres d'installation, les clés de ce répertoire sont ultérieurement
+modifiables par l'administrateur du système CLIP.
+</p>
+
+<h4>Certificats SSL</h4>
+
+<p>
+Lorsque des téléchargements de mises à jour par le réseau (<i>https</i>) doivent être mis en oeuvre, le certificat de l'autorité de certification associée
+à ces téléchargements (autorité qui signe le certificat du serveur <i>https</i>) peut être placé dans le fichier <i>conf/cert/cacert.pem</i>.
+</p>
+
+<h4>Profils réseau</h4>
+
+<p>
+Le ou les profils de connexion réseau initiaux du poste peuvent être placés dans autant de sous-répertoires de <i>conf/netconf.d</i>. Ces profils sont 
+normalement définis à l'aide de l'éditeur de profils réseau, lui-même lancé depuis l'onglet <i>Paramètres réseau</i> de l'éditeur de profils de 
+configuration.
+</p>
+
+<h4>Clés publiques de téléadministration</h4>
+
+<p>
+Des clés publiques SSH peuvent être placées dans les sous-répertoires <i>conf/admin_pubkeys</i> et <i>conf/audit_pubkeys</i>. Elles seront dans ce cas
+automatiquement ajoutées à la liste initiale des clés SSH autorisées à se connecter aux cages ADMIN et AUDIT, respectivement. Ces répertoires sont 
+typiquement utiles en cas de téléadministration centralisée d'un parc de postes.
+</p>
+
+<h2><u><a name="advanced">Installation avancée</a></u></h2>
+
+<p>
+L'installeur CLIP supporte un certain nombre d'options avancées, qui peuvent notamment servir à l'installation de configurations de test, où à la 
+personnalisation du comportement de l'installeur pour des déploiements particuliers.
+</p>
+
+<h3><u><a name="advanced-external">Utilisation de profils de configuration externes</a></u></h3>
+
+<p>
+Les profils de configuration et profils matériels normalement utilisés par l'installeur sont ceux présents sur le support d'installation, respectivement 
+dans les répertoires <i>/mnt/cdrom/config</i> et <i>/opt/clip-installer/hw_conf</i>. Il est cependant possible d'utiliser des profils de configuration (et 
+éventuellement des profils matériels, bien que cela ne soit pas recommandé) présents sur un autre support, en réalisant un montage de type <i>bind</i>
+sur les répertoires concernés. Par exemple, pour utiliser les profils de configuration présents dans le répertoire <i>conf</i> d'un support amovible USB 
+(différent du support d'installation) vu par le système comme <i>/dev/sdc1</i>, on pourra lancer les commandes suivantes :
+</p>
+
+<pre>
+mount /dev/sdc1 /mnt/usb
+mount --bind /mnt/usb/conf /mnt/cdrom/config
+</pre>
+
+<p>
+Il suffira ensuite de quitter et relancer l'<a href="#simple-install">interface d'installation</a> pour que les nouveaux profils soient pris en compte, 
+en remplacement des anciens.
+</p>
+
+<h3><u><a name="advanced-install">Scripts post-installation</a></u></h3>
+
+<p>
+L'installation CLIP peut être complétée au besoin par des scripts de post-installation spécifiques à un déploiement. De tels scripts peuvent être 
+placés dans les répertoires <i>/mnt/cdrom/postinst_scripts</i> et <i>/mnt/cdrom/postinst_chroot_scripts</i> du support d'installation (visibles 
+sous <i>/postinst_scripts</i> et <i>/postinst_chroot_scripts</i>, respectivement, lorsque le support est simplement monté). 
+</p>
+
+<p>
+La bonne compréhension du mode d'invocation de ces scripts nécessite quelques informations complémentaires sur le fonctionnement de l'installeur CLIP.
+Pour chaque installation de poste CLIP, cet installeur réalise en fait deux installations complètes CLIP, sur deux jeux de partitions alternatifs. Ces
+deux installations permettent ensuite la mise en oeuvre de la procédure de mise à jour spécifique du coeur CLIP, avec gestion du retour en arrière en 
+cas d'erreur dans la mise à jour. La première installation CLIP est réalisée sur un jeu de partitions monté sous <i>/clip1</i> dans l'arborescence de 
+l'installeur. Elle est suivie d'une phase de configuration des différents paramètres communs aux deux installations CLIP, incluant notamment la création
+des comptes utilisateurs et la génération des clés SSH locales. La deuxième installation CLIP est quant à elle réalisée sur un jeu de partitions monté sous 
+<i>/clip2</i>, et n'est pas suivie d'une configuration des paramètres communs.
+</p>
+
+<p>
+Les scripts de post-installation sont exécutés à l'issue de chacune de ces deux installations. Le mode d'exécution dépend du répertoire dans lequel est
+présent le script. Les scripts de <i>postinst_scripts</i> sont exécutés dans l'environnement standard de l'installeur, avec une visibilité sur l'ensemble 
+du support d'installation, tandis que ceux de <i>postinst_chroot_scripts</i> le sont dans un environnement confiné a l'arborescence qui vient
+d'être installée (moyennant un <i>chroot /clip1</i> ou <i>chroot /clip2</i>). 
+Les scripts de chaque type sont lancés dans l'ordre alphabétique, avec chacun deux arguments, selon le modèle suivant :
+<pre>
+&lt;script&gt; /clip1|/clip2 conf|noconf
+</pre>
+où le premier argument précise le point de montage du jeu de partitions courant (<i>/clip1</i> ou <i>/clip2</i>), et le deuxième vaut <i>conf</i> lorsque
+la configuration des paramètres communs est réalisée sur cette installation, et <i>noconf</i> dans le cas contraire.
+</p>
+
+<p>
+L'ensemble du répertoire <i>/mnt/cdrom/postinst_chroot_scripts</i> est copié à la racine de l'installation CLIP, sous <i>/postinst_scripts</i>, avant 
+l'exécution des scripts de ce répertoire. Tous les fichiers présents à la racine de ce répertoire sont considérés comme des scripts, et exécutés. Si des 
+données complémentaires sont nécessaires à l'exécution de certains scripts, elles peuvent être placées dans des sous-répertoires de 
+<i>/mnt/cdrom/postinst_chroot_scripts</i> (afin de ne pas être elles-mêmes exécutées), et seront accessibles depuis les scripts dans les sous-répertoires 
+correspondants de <i>/postinst_scripts</i>. A l'issue de l'évocation des différents scripts, le répertoire <i>/postinst_scripts</i> est supprimé de 
+l'arborescence CLIP concernée. 
+</p>
+
+<p>
+On notera enfin que seule l'arborescence principale CLIP est créée lors du lancement des scripts : les montages <i>bind</i> internes aux différentes cages
+logicielles ne sont pas réalisés - et il n'est pas possible de créer ces cages dans l'environnement d'exécution des scripts.
+</p>
+
+<h3><u><a name="advanced-user">Scripts de création d'utilisateur</a></u></h3>
+
+<p>
+De manière similaire à l'exécution de scripts post-installation, décrite dans la section précédente, il est possible de personnaliser la création 
+de comptes utilisateur à l'aide de scripts spécifiques présents sur le support d'installation. A cette fin, le répertoire <i>/mnt/cdrom/user_scripts</i>
+de l'environnement d'installation (visible sous <i>/user_scripts</i> lorsque le support est simplement monté), s'il est présent, sera intégralement copié
+sous <i>/etc/clip_useradd.d</i> dans l'arborescence de chaque système installé. Les scripts présents dans ce répertoire seront exécutés lors de la création 
+d'utilisateur par l'installeur. A la différence des scripts de post-installation, qui sont supprimés à l'issue de l'installation, ces scripts de création
+de compte utilisateur sont laissés en place dans l'arborescence CLIP, de manière à pouvoir être également lancés lors de la création ultérieure de comptes
+utilisateurs par les outils d'administration du poste CLIP. Il est en revanche à noter que ces scripts, une fois copiés au sein du système CLIP, ne 
+pourront jamais être mis à jour, ni même supprimés, pour suivre les évolutions du système. Les traitements réalisés devront donc rester simples, et
+ne pas présenter de risques pour le système.
+</p>
+
+<p>
+Pour chaque compte utilisateur, les scripts utilisateurs sont exécutés non pas une seule fois, mais lors de chaque création de partition chiffrée associée
+à ce compte (soit une pour le niveau CLIP, et une par cage RM présente sur le système, sauf pour les comptes administrateur et auditeur, qui ne possèdent
+qu'une partition CLIP). Plus précisément, les scripts sont exécutés dans l'ordre alphabétique, <i>"chrootés"</i> dans l'arborescence CLIP, après la 
+création et l'initialisation standard de la partition concernée, et alors que celle-ci est encore montée de manière temporaire dans l'arborescence. Tout 
+comme pour les scripts de post-installation, tous les fichiers présents à la racine de <i>/mnt/cdrom/user_scripts</i> seront considérés comme des scripts, 
+et les éventuelles données complémentaires peuvent être placées dans des sous-répertoires de ce répertoire (et seront par conséquent accessibles par les 
+scripts dans les sous-répertoires correspondants de <i>/etc/clip_useradd.d</i>).
+</p>
+
+<p>
+Chaque script est lancé sous l'identité <i>root</i> avec les arguments suivants :
+<pre>
+&lt;script&gt; &lt;mountpoint&gt; &lt;name&gt; &lt;type&gt; &lt;path&gt; &lt;size&gt;
+</pre>
+avec :
+</p>
+<ul>
+	<li><i>mountpoint</i> le point de montage temporaire de la partition utilisateur nouvellement créée ; typiquement <i>/var/tmp/newuser</i> lors 
+	de la création d'utilisateurs par l'installeur.
+	</li>
+	<li><i>name</i> le nom du compte utilisateur en cours de création.
+	</li>
+	<li><i>type</i> le type de compte utilisateur, avec pour valeurs possibles <i>user</i>, <i>privuser</i>, <i>nomad</i>, 
+	<i>admin</i> ou <i>audit</i>.
+	</li>
+	<li><i>path</i> le chemin sous lequel sont stockées la clé et l'image de partition chiffrée correspondant à la partition en cours de traitement ; 
+	typiquement <i>/home</i> pour une partition CLIP, <i>/home/rm_h</i> pour une partition RM_H, ou <i>/home/rm_b</i> pour une partition RM_B.
+	</li>
+	<li><i>size</i> la taille en mégaoctets de la partition.</li>
+</ul>
+
+<p>
+Tout comme pour les scripts de post-installation, seule l'arborescence CLIP est montée de manière garantie lors de l'évocation des scripts utilisateur, 
+celles des différentes cages ne le sont pas nécessairement.
+</p>
+
+<h3><u><a name="advanced-extrapkg">Installation de paquetages supplémentaires</a></u></h3>
+
+<p>
+L'installeur CLIP permet également de forcer l'installation de paquetages supplémentaires, non référencés par un paquetage "configuration", dans le coeur
+du socle CLIP ou de chaque cage RM. Cette fonctionnalité a uniquement vocation à être mise en oeuvre lors de l'installation d'une configuration de test, 
+afin d'installer des outils nécessaires aux tests. En effet les paquetages ainsi installés ne pourront jamais être mis à jour, ni supprimés, par le système
+de mise à jour CLIP, et risquent à terme de bloquer ces mises à jour du fait de conflits.
+</p>
+
+<p>
+Les paquetages supplémentaires à installer ainsi peuvent être énumérés, à raison d'un nom de paquetage (sans version) par ligne, dans trois fichiers 
+spécifiques du profil de configuration concerné :
+</p>
+<ul>
+	<li><i>params/extra.clip.core</i> pour les paquetages à installer dans le socle CLIP ;</li>
+	<li><i>params/extra.rm_h.core</i> pour les paquetages à installer dans RM_H ;</li>
+	<li><i>params/extra.rm_b.core</i> pour les paquetages à installer dans RM_B.</li>
+</ul>
+
+<p>
+Les paquetages correspondants doivent obligatoirement être des paquetages dits essentiels (qui n'installent pas de fichiers dans <i>/usr/local</i>) et être
+présents dans le miroir correspondant, CLIP ou RM, du support d'installation.
+</p>
+
+</body>

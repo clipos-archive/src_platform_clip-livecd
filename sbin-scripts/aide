@@ -1,0 +1,6 @@
+#!/bin/sh
+# SPDX-License-Identifier: LGPL-2.1-or-later
+# Copyright © 2008-2018 ANSSI. All Rights Reserved.
+BIN_PATH=${0%/*}
+
+less ${BIN_PATH}/aide.txt

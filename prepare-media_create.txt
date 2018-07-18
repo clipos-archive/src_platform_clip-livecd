@@ -1,0 +1,9 @@
+home		d	0755	0	0
+mnt		d	0755	0	0
+mnt/usb		d	0755	0	0
+proc		d	0755	0	0
+root		d	0750	0	0
+tmp		d	0755	0	0
+var/cache	d	0755	0	0
+var/log		d	0755	0	0
+var/tmp		d	0755	0	0

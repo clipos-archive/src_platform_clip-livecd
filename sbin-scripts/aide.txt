@@ -1,0 +1,180 @@
+Derniere documentation : /usr/share/clip-livecd/help.html
+
+
+CONFIGURATION
+=============
+
+
+Avant de commencer l'installation, il vous faut preparer la
+configuration de la machine qui va etre installee.
+
+
+Detail des fichiers de configuration
+------------------------------------
+
+Les sous-repertoires necessaires a la configuration sont les suivants
+ - conf, qui contient les parametres de configuration generaux ;
+ - ike2_cert contient les cles publiques CCSD IKE des passerelles
+   distantes, qui seront copies dans le repertoire /etc/ike2/cert des
+   systemes CLIP crees ;
+ - admin_ike2_cert contient les cles privees CCSD IKE de l'hote,
+   qui seront copiees dans /etc/admin/ike2/cert ;
+ - usb_keys, ou sont deposees les cles publiques RSA correspondant aux
+   cles RSA des utilisateurs pour les cles USB.
+ - keys, enfin, contient les cles necessaires a la verification des
+   signature des mises a jour (une cle pour les developpeurs, une cle
+   pour les controleurs).
+
+Pour plus de details sur leur contenu, consultez
+/opt/clip-installer/Readme.txt
+
+
+Repertoire de configuration
+---------------------------
+
+Si vous souhaitez apporter des informations de configuration depuis
+une cle USB, il vous faudra d'abord la monter avec la commande
+
+  mount /dev/sdb1 /root/removable
+
+Le repertoire de configuration sera alors /root/removable
+
+Si vous avez cree un support amovible d'installation et que ce support
+contient la configuration a injecter dans un sous repertoire install,
+ce repertoire sera accessible par /mnt/cdrom/install
+
+
+
+INSTALLATION
+============
+
+Une fois la configuration preparee, pour installer clip, veuillez
+taper 
+
+full-install.sh -t <type> -c <config> [-N] <device(s)>
+
+Cette commande utilise <device> comme peripheerique ou installer le
+systeme CLIP. Le parametre -t, obligatoire, definit le type de systeme
+CLIP a installer (RM, GTW-RMH ou GTW-UPDATE). Le parametre -c permet
+de donner au programme d'installation le repertoire ou se trouve la
+configuration (/root/removable ou /mnt/cdrom/install dans les exemples
+ci-dessus).
+
+Dans le cas d'une installation de CLIP pour une passerelle, il faudra
+donner deux noms de peripheriques, car l'installation se fera dans ce
+cas sur deux disques durs montes en RAID 1.
+
+Par defaut, le programme va utiliser une partie du disque de
+destination pour mettre en cache les miroirs des paquetages. Si vous
+souhaitez eviter cette mise en cache, vous pouvez ajouter l'option -N.
+
+
+
+Une fois lancee, cette commande va enchainer les quatre commandes
+ci-dessous. Si les parametres de ces commandes ne conviennent pas, ou
+si un probleme survient, vous pourrez choisir de les executer a la
+main, l'une apres l'autre, en prenant soin de modifier les parametres
+si besoin est.
+
+
+Initialisation des partitions
+-----------------------------
+
+  init_partitions.sh <device>
+  init_partitions.sh -R <device1> <device2>
+
+Cette commande initialise les partitions et formate les partitions
+communes. La premiere commande est la version utilisee lors de
+l'installation d'un poste client CLIP, la seconde celle des
+passerelles (R pour RAID, suivi de deux noms de peripheriques).
+
+La table des partitions a ecrire peut de plus etre specifiee comme
+argument supplementaire (par exemple : init_partitions.sh /dev/sda
+/root/parts). Par defaut, une table adaptee au disque dur est
+calculee. Pour les passerelles, les disques utilises doivent etre
+identiques, puisque la meme table des partitions sera utilisee pour
+les deux disques.
+
+En cas de succes, l'ancienne table des partitions sera sauvegardee
+sous le nom partitions.bak (sous les noms partitions1.bak et
+partitions2.bak dans le cas d'une installation de passerelle, puisque
+deux disques dur sont utilises) dans un repertoire temporaire de la forme
+/var/tmp/init_parts.XXXX.
+
+Attention : le ou les fichiers sauvegardes seront perdus lors de
+l'extinction de la machine. Si vous souhaitez les conserver, vous
+pouvez le copier sur une cle USB en utilisant la commande de montage
+ci-dessus (mount /dev/sdb1 /root/removable) et la copie
+
+  cp /var/tmp/init_parts/partitions.bak /root/removable
+
+
+Installation du premier jeu de partitions
+-----------------------------------------
+
+  /opt/clip-installer/install_clip_rm.sh -d <device> -u file:///mirrors
+                                         -c <config> -b clip1
+
+Cette commande installe CLIP RM sur le premier jeu de partitions.
+
+Les commandes pour les passerelles sont :
+
+  /opt/clip-installer/install_clip_gtw_rm.sh -d /dev/md -u file:///mirrors
+                                             -s 1024x768:16 -c <config> -b
+					     -t pe2900 clip1
+
+  /opt/clip-installer/install_clip_gtw_update.sh -d /dev/md -u file:///mirrors
+                                                 -s 1024x768:16 -c <config> -b
+                         			 -t pe2900 clip1
+
+Le miroir utilise est soit /mirrors-cached soit /mirrors, selon que
+vous avez choisi d'utiliser ou non un cache pour le miroir.
+
+Pour plus d'informations sur clip-installer, veuillez lire le fichier
+/opt/clip-installer/Readme.txt
+
+
+Installation du second jeu de partitions
+----------------------------------------
+
+  /opt/clip-installer/install_clip_rm.sh -d /dev/sda -u file:///mirrors
+                                         -c /root -b -z clip2
+
+Cette commande, similaire a la precedente, installe CLIP RM sur le
+second jeu de partitions. L'adaptation des commandes suivantes pour
+les passerelles se fait simplement en changeant clip1 en clip2.
+
+
+Finalisation de l'installation
+------------------------------
+
+  /opt/clip-livecd/bootloader.sh -M <device> <device>1
+  /opt/clip-livecd/bootloader.sh -M <device1> -m <device2> /dev/md1
+
+Cette derniere commande installe les outils necessaire au demarrage
+correct du nouveau systeme : le "bootloader" de CLIP, ainsi que le
+"MBR" (Master Boot Record).
+
+La premiere version concerne l'installation de CLIP-RM. Par exemple,
+pour une installation sur le disque /dev/sda, la commande sera
+
+  /opt/clip-livecd/bootloader.sh -M /dev/sda /dev/sda1
+
+pour installer le MBR sur /dev/sda et le "bootloader" sur /dev/sda1.
+
+La seconde version concerne l'installation des passerelles. Ainsi,
+pour installer la passerelle sur /dev/sda et /dev/sdb, il faudra saisir
+
+  /opt/clip-livecd/bootloader.sh -M /dev/sda -m /dev/sdb /dev/md1
+
+pour installer le MBR sur /dev/sda et sur /dev/sdb, et le "bootloader"
+sur /dev/md1 (c'est a dire a la fois sur /dev/sda1 et /dev/sdb1)
+
+
+
+
+
+Si toutes les etapes se sont correctement deroulees, vous devrez etre
+en mesure de redemarrer sur un systeme CLIP fonctionnel. L'unique
+compte configure est un compte administrateur nomme "config", dont le
+mot de passe, ainsi que la passphrase RSA, est "config".

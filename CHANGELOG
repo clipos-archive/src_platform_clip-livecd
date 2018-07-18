@@ -1,0 +1,753 @@
+# CLIP ChangeLog for clip-dev/clip-livecd
+
+*clip-livecd-2.8.12-r1 (24 Jan 2018)
+
+  24 Jan 2018; Timothée Ravier <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.12-r1.ebuild, -clip-livecd-2.8.12.ebuild:
+  Use clip-kernel 4.4 by default.
+
+*clip-livecd-2.8.12 (25 Aug 2017)
+
+  25 Aug 2017; Nicolas Godinho <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.12.ebuild, -clip-livecd-2.8.11.ebuild:
+  Fix missing "config" directory (i.e. the directory containing the CLIP
+  configuration profiles) on the CLIP USB installer medium created with
+  the "prepare-key.sh" script.
+
+*clip-livecd-2.8.11 (05 Jul 2017)
+
+  05 Jul 2017; Nicolas Belouin <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.11.ebuild, -clip-livecd-2.8.10.ebuild:
+
+*clip-livecd-2.8.10 (21 Jun 2017)
+
+  21 Jun 2017; Nicolas Belouin <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.10.ebuild, -clip-livecd-2.8.9.ebuild:
+  Change behaviour of init_partition to better handle keep data case
+
+*clip-livecd-2.8.9 (18 May 2017)
+
+  18 May 2017; Nicolas Belouin <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.9.ebuild, -clip-livecd-2.8.8.ebuild:
+  Increase number of modules in initramfs and add slowusb flag for syslinux
+
+*clip-livecd-2.8.8 (09 Jan 2017)
+
+  09 Jan 2017; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.8.ebuild, -clip-livecd-2.8.7-r1.ebuild:
+  feature: add support for an escrow key for encrypted
+  partitions, add crypt2 encryption scheme.
+
+*clip-livecd-2.8.7-r1 (09 Jan 2017)
+
+  09 Jan 2017; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.7-r1.ebuild, -clip-livecd-2.8.7.ebuild:
+  fix ebuild: clip-livecd runtime dependency is just for
+  clip-devstation and not for clip-livecd.
+
+*clip-livecd-2.8.7 (01 Dec 2016)
+
+  01 Dec 2016; Alain Ozanne <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.7.ebuild, -clip-livecd-2.8.6.ebuild:
+  get-mirrors.sh : able to compile missing packages.
+
+*clip-livecd-2.8.6 (28 Jul 2016)
+
+  28 Jul 2016; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.6.ebuild, -clip-livecd-2.8.5.ebuild:
+  get-mirrors.sh: Add incremental mirror update.
+
+*clip-livecd-2.8.5 (24 May 2016)
+
+  24 May 2016; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.5.ebuild, -clip-livecd-2.8.4.ebuild:
+  prepare-key.sh: align first partition to 2048 sectors
+  enter-loop.sh: fix previous change by unmounting /dev/shm afterwards.
+
+*clip-livecd-2.8.4 (14 Mar 2016)
+
+  14 Mar 2016; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.4.ebuild, -clip-livecd-2.8.3.ebuild:
+  Bind mount /dev/shm only in enter-loop.sh when in SDK
+  mode as bind mounting /dev creates strong issues in the
+  generated SDK /dev.
+
+*clip-livecd-2.8.3 (14 Mar 2016)
+
+  14 Mar 2016; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.3.ebuild, -clip-livecd-2.8.2.ebuild:
+  Bind mount /dev in enter-loop.sh when in SDK mode to
+  fix python configuration complaining on /dev/shm.
+
+*clip-livecd-2.8.2 (03 Mar 2016)
+
+  03 Mar 2016; Tony Cheneau <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.2.ebuild, -clip-livecd-2.8.1-r1.ebuild:
+  Extend prepare-key.sh script to add raw image file support.
+
+*clip-livecd-2.8.1-r1 (02 Mar 2016)
+
+  02 Mar 2016; Alain Ozanne <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.1-r1.ebuild, -clip-livecd-2.8.1.ebuild:
+  Add clip-eraser scripts.
+
+*clip-livecd-2.8.1 (26 Feb 2016)
+
+  26 Feb 2016; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.1.ebuild, -clip-livecd-2.8.0.ebuild:
+  Compute dependencies of extra packages in get-mirrors.sh.
+
+*clip-livecd-2.8.0 (19 Feb 2016)
+
+  19 Feb 2016; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.8.0.ebuild, -clip-livecd-2.7.23-r1.ebuild:
+  Migrate from clip-tiny to clip-bare.
+
+  01 Dec 2015; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  clip-livecd-2.7.23-r1.ebuild:
+  Add dependency on clip-kernel and syslinux also on amd64.
+
+*clip-livecd-2.7.23-r1 (22 Oct 2015)
+
+  22 Oct 2015; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.23-r1.ebuild, -clip-livecd-2.7.23.ebuild:
+  Use the GNU tar.
+
+*clip-livecd-2.7.23 (06 Oct 2015)
+
+  06 Oct 2015; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.23.ebuild, -clip-livecd-2.7.22.ebuild:
+  Fix jails partition management
+
+*clip-livecd-2.7.22 (18 Aug 2015)
+
+  18 Aug 2015; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.22.ebuild, -clip-livecd-2.7.21.ebuild:
+  Fix the bootloader installation
+
+*clip-livecd-2.7.21 (30 Jul 2015)
+
+  30 Jul 2015; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.21.ebuild, -clip-livecd-2.7.20.ebuild:
+  Change the way syslinux is installed
+
+*clip-livecd-2.7.20 (16 Jun 2015)
+
+  16 Jun 2015; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.20.ebuild, -clip-livecd-2.7.19.ebuild:
+  Add firmware info inside profiles
+
+
+*clip-livecd-2.7.19 (15 Jun 2015)
+
+  15 Jun 2015; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.19.ebuild, -clip-livecd-2.7.18.ebuild:
+  Resize partitions for tiny to fit in 16G disk.
+
+*clip-livecd-2.7.18 (12 May 2015)
+
+  12 May 2015; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.18.ebuild, -clip-livecd-2.7.17.ebuild:
+  Use correct filesystem (vfat) for /boot partition
+  (EFI use case)
+
+*clip-livecd-2.7.17 (16 Mar 2015)
+
+  16 Mar 2015; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.17.ebuild, -clip-livecd-2.7.16.ebuild:
+  Switch to parted, add GPT support
+
+*clip-livecd-2.7.16 (05 Mar 2015)
+
+  05 Mar 2015; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.16.ebuild, -clip-livecd-2.7.15-r1.ebuild:
+  Add support for installer on virtio device.
+
+*clip-livecd-2.7.15-r1 (23 Feb 2015)
+
+  23 Feb 2015; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.15-r1.ebuild, -clip-livecd-2.7.15.ebuild:
+  Add pcsc/opensc/ccid in clip-livecd.
+
+  05 Feb 2015; ANSSI <clipos@ssi.gouv.fr>
+  clip-livecd-2.7.15.ebuild:
+  Depend on timer_entropyd.
+  Add Eurisko support.
+
+*clip-livecd-2.7.15 (06 Jan 2015)
+
+  06 Jan 2015; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.15.ebuild, -clip-livecd-2.7.14.ebuild:
+  Fix an issue during installation when using virtio disk
+
+*clip-livecd-2.7.14 (23 Dec 2014)
+
+  23 Dec 2014; Thomas Letan <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.14.ebuild, -clip-livecd-2.7.13-r1.ebuild:
+  Add support to virtio, in order to use it with qemu/kvm vm
+
+*clip-livecd-2.7.13-r1 (21 Nov 2014)
+
+  21 Nov 2014; Piotr Chmielnicki <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.13-r1.ebuild, -clip-livecd-2.7.13.ebuild:
+Added syslinux as dependency of clip-livecd
+
+*clip-livecd-2.7.13 (06 Oct 2014)
+
+  06 Oct 2014; Tony Cheneau <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.13.ebuild, -clip-livecd-2.7.12.ebuild:
+  Extend install media preparation script to add EXT4 support.
+
+*clip-livecd-2.7.12 (04 Sep 2014)
+
+  04 Sep 2014; Tony Cheneau <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.12.ebuild, -clip-livecd-2.7.11.ebuild:
+  Load nfsv3 module when network boot is used.
+
+*clip-livecd-2.7.11 (02 Sep 2014)
+
+  02 Sep 2014; Tony Cheneau <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.11.ebuild, -clip-livecd-2.7.10.ebuild:
+  Add 4-k sector block aligned partition on new hard disk drive.
+
+*clip-livecd-2.7.10 (11 Apr 2014)
+
+  11 Apr 2014; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.10.ebuild, -clip-livecd-2.7.9.ebuild:
+  Add U-boot script generation.
+
+*clip-livecd-2.7.9 (24 Mar 2014)
+
+  24 Mar 2014; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.9.ebuild, -clip-livecd-2.7.8.ebuild:
+  Fix installation, do not attempt PXE installation if rootserver=
+  option was not specified on boot command line.
+
+*clip-livecd-2.7.8 (21 Mar 2014)
+
+  21 Mar 2014; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  clip-livecd-2.7.8.ebuild:
+	Remove x11-themes/qtcurve-qt4 and x11-themes/gtk-engines-qtcurve from
+	dependencies since the ebuilds have been removed.
+
+  21 Mar 2014; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.8.ebuild, -clip-livecd-2.7.7.ebuild:
+  Add support of PXE/NFS installation.
+
+*clip-livecd-2.7.7 (20 Mar 2014)
+
+  20 Mar 2014; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.7.ebuild, -clip-livecd-2.7.6-r1.ebuild:
+  Add support of clip-tiny distribution.
+
+*clip-livecd-2.7.6-r1 (17 Feb 2014)
+
+  17 Feb 2014; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.6-r1.ebuild, -clip-livecd-2.7.6.ebuild:
+  Add mirabox platform support.
+
+*clip-livecd-2.7.6 (09 Jan 2014)
+
+  09 Jan 2014; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.6.ebuild, -clip-livecd-2.7.5.ebuild,
+  files/fstab:
+  Support custom disk layouts through the param/disk_layout
+  file in the install profile.
+  Remove udev line in fstab, for use with newest openrc.
+
+*clip-livecd-2.7.5 (31 Oct 2013)
+
+  31 Oct 2013; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.5.ebuild, -clip-livecd-2.7.4.ebuild:
+  Do not try to install bootloader on arm.
+
+*clip-livecd-2.7.4 (31 Oct 2013)
+
+  31 Oct 2013; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.4.ebuild, -clip-livecd-2.7.3.ebuild:
+  Add support of SD card for installation medium.
+
+*clip-livecd-2.7.3 (31 Oct 2013)
+
+  31 Oct 2013; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.3.ebuild, -clip-livecd-2.7.2.ebuild:
+  Updated livecd-mkinitrd.sh to produce u-boot image on arm.
+
+*clip-livecd-2.7.2 (30 Oct 2013)
+
+  30 Oct 2013; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.2.ebuild, -clip-livecd-2.7.1.ebuild:
+  Do not fail when trying to copy syslinux/menu.c32 if it
+  does not exist.
+
+*clip-livecd-2.7.1 (23 Oct 2013)
+
+  23 Oct 2013; ANSSI <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.1.ebuild, -clip-livecd-2.7.0.ebuild:
+  Add arm architecture support.
+
+*clip-livecd-2.7.0 (14 Oct 2013)
+
+  14 Oct 2013; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.7.0.ebuild, -clip-livecd-2.6.5.ebuild,
+  +files/fstab:
+  Install CLIP-RM with only one set of RM jails, shared
+  between clip1 and clip2.
+  Support openrc-0.11 with an updated init script and a 
+  custom fstab to ensure pts is mounted.
+
+*clip-livecd-2.6.5 (11 Oct 2013)
+
+  11 Oct 2013; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.6.5.ebuild, -clip-livecd-2.6.4.ebuild:
+  Do not try to create bigger RM partitions when reinstalling.
+
+*clip-livecd-2.6.4 (08 Oct 2013)
+
+  08 Oct 2013; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  +clip-livecd-2.6.4.ebuild, -clip-livecd-2.6.3.ebuild:
+  enter-loop.sh: bind-mount /var/tmp/portage in SDK mode.
+
+*clip-livecd-2.6.3 (08 Oct 2013)
+
+  08 Oct 2013; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  +clip-livecd-2.6.3.ebuild, -clip-livecd-2.6.2-r2.ebuild:
+  enter-loop.sh: handle a -s argument used when entering an SDK in bootstrap
+  mode, don't share /dev and /usr/src/linux in that case.
+
+*clip-livecd-2.6.2-r2 (11 Sep 2013)
+
+  11 Sep 2013; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  +clip-livecd-2.6.2-r2.ebuild, -clip-livecd-2.6.2-r1.ebuild:
+  Add dependency on sys-process/procps, sys-apps/kbd, sys-apps/net-tools.
+
+*clip-livecd-2.6.2-r1 (06 Sep 2013)
+
+  06 Sep 2013; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  +clip-livecd-2.6.2-r1.ebuild, -clip-livecd-2.6.2.ebuild:
+  Add dependencies taken from the clip-livecd profile.
+
+*clip-livecd-2.6.2 (28 Aug 2013)
+
+  28 Aug 2013; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.6.2.ebuild, -clip-livecd-2.6.1.ebuild:
+  Try twice to initiate partitions. Create bigger RM/mounts
+  partitions if enough room is available on disk.
+
+*clip-livecd-2.6.1 (10 May 2013)
+
+  10 May 2013; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.6.1.ebuild, -clip-livecd-2.6.0-r1.ebuild:
+  Fix warnings at boot. Support USB hardware profiles.
+
+*clip-livecd-2.6.0-r1 (19 Apr 2013)
+
+  19 Apr 2013; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  +clip-livecd-2.6.0-r1.ebuild, -clip-livecd-2.6.0.ebuild:
+  Replace fbpanel dependency by adeskbar with livecd support. 
+
+*clip-livecd-2.6.0 (18 Apr 2013)
+
+  18 Apr 2013; Yves-Alexis Perez <clipos@ssi.gouv.fr>
+  +clip-livecd-2.6.0.ebuild, -clip-livecd-2.5.7.ebuild:
+  Add support for ext4 file systems.
+  full_install.sh, init_partitions.sh: create and handle ext4 filesystems.
+  Update dependency on clip-install-gui and clip-installer for ext4 mount
+  support.
+  Update dependency on clip-kernel for ext4 support.
+
+*clip-livecd-2.5.7 (11 Apr 2013)
+
+  11 Apr 2013; Hugo Chargois <clipos@ssi.gouv.fr>
+  +clip-livecd-2.5.7.ebuild, -clip-livecd-2.5.6.ebuild:
+  full-install.sh - Fix path to save script (/opt/clip-installer/save.sh)
+
+*clip-livecd-2.5.6 (11 Jan 2013)
+
+  11 Jan 2013; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.5.6.ebuild, -clip-livecd-2.5.5.ebuild:
+  Fix install disk fix.
+
+*clip-livecd-2.5.5 (10 Jan 2013)
+
+  10 Jan 2013; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.5.5.ebuild, -clip-livecd-2.5.4-r2.ebuild:
+  Sanitize partitions creation.
+
+*clip-livecd-2.5.4-r2 (02 Jan 2013)
+
+  02 Jan 2013; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.5.4-r2.ebuild, -clip-livecd-2.5.4-r1.ebuild:
+  Add postinst instructions for updating a chroot (from 2.5.4).
+
+*clip-livecd-2.5.4-r1 (19 Dec 2012)
+
+  19 Dec 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.5.4-r1.ebuild, -clip-livecd-2.5.4.ebuild:
+  Depend on clip-layout/baselayou-sdk, cleaner base layout and clip-livecd
+  layout.
+
+*clip-livecd-2.5.4 (13 Dec 2012)
+
+  13 Dec 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.5.4.ebuild, -clip-livecd-2.5.3.ebuild:
+  enter-loop.sh - error handling, new options and don't use persistent
+  directories anymore.
+  prepare-media.sh - cleanup and exclude some paths from the squashfs image.
+  preinst-save-conf.sh - merge with clip-installer:save.sh .
+
+*clip-livecd-2.5.3 (10 Dec 2012)
+
+  10 Dec 2012; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.5.3.ebuild, -clip-livecd-2.5.2.ebuild:
+  enter-loop.sh - keep /var/db/pkg in the squashfs.
+  prepare-media.sh - ensure the proper menu.c32 is present
+  on the installer.
+
+  07 Dec 2012; Mickaël Salaün <clipos@ssi.gouv.fr>:
+  enter-loop.sh - remove /etc/mtab.
+
+*clip-livecd-2.5.2 (09 Nov 2012)
+
+  09 Nov 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.5.2.ebuild, -clip-livecd-2.5.1.ebuild:
+  Use clip-disk command.
+
+*clip-livecd-2.5.0 (15 Oct 2012)
+
+  15 Oct 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.5.0.ebuild, -clip-livecd-2.4.13.ebuild:
+  Add helper script: postinst-rm.sub .
+
+*clip-livecd-2.4.13 (25 Jun 2012)
+
+  25 Jun 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.13.ebuild, -clip-livecd-2.4.12-r1.ebuild:
+  Permit prepare-key.sh to update installation media.
+  Fix pts mount point.
+
+*clip-livecd-2.4.12-r1 (22 Jun 2012)
+
+  22 Jun 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.12-r1.ebuild, -clip-livecd-2.4.12.ebuild:
+  Fix dependencies.
+
+*clip-livecd-2.4.12 (18 Jun 2012)
+
+  18 Jun 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.12.ebuild, -clip-livecd-2.4.11.ebuild,
+  files/99clip-livecd:
+  Set LANG to UTF-8.
+  Fix /dev mount in enter-loop.sh dev script.
+
+*clip-livecd-2.4.11 (26 Apr 2012)
+
+  26 Apr 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.11.ebuild, -clip-livecd-2.4.10.ebuild:
+  Fix installation boot disk name.
+  Unmount all Clip partitions after install.
+  Show modification date at login.
+  Move /var/db/pkg to persistent dir.
+
+*clip-livecd-2.4.10 (25 Apr 2012)
+
+  25 Apr 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.10.ebuild, -clip-livecd-2.4.9.ebuild:
+  Fix and clean up soft RAID management.
+
+*clip-livecd-2.4.9 (20 Apr 2012)
+
+  20 Apr 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.9.ebuild, -clip-livecd-2.4.8-r1.ebuild:
+  Fix soft RAID creation.
+
+*clip-livecd-2.4.8-r1 (11 Apr 2012)
+
+  11 Apr 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.8-r1.ebuild, -clip-livecd-2.4.8.ebuild:
+  Add dosfstools dependency.
+
+*clip-livecd-2.4.8 (06 Feb 2012)
+
+  06 Feb 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.8.ebuild, -clip-livecd-2.4.7.ebuild:
+  Unmount, unmap and unraid partitions before install.
+
+*clip-livecd-2.4.7 (03 Feb 2012)
+
+  03 Feb 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.7.ebuild, -clip-livecd-2.4.6.ebuild:
+  Add a clone feature.
+
+*clip-livecd-2.4.6 (31 Jan 2012)
+
+  31 Jan 2012; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.6.ebuild, -clip-livecd-2.4.5-r1.ebuild,
+  +files/clip-livecd.sh, +files/99clip-livecd:
+  Fix partitions cleaning.
+  Get ride of bashrc (compatible with etc-update) + cleaning.
+
+*clip-livecd-2.4.5-r1 (17 Nov 2011)
+
+  17 Nov 2011; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.5-r1.ebuild, -clip-livecd-2.4.5.ebuild:
+  Remove ARCH environment in bashrc.
+
+*clip-livecd-2.4.5 (17 Nov 2011)
+
+  17 Nov 2011; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.5.ebuild, -clip-livecd-2.4.4.ebuild:
+  Rename <loop>/portage to <loop>/opt/clip-int + fix persistent dir.
+
+*clip-livecd-2.4.4 (20 Oct 2011)
+
+  20 Oct 2011; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.4.ebuild, -clip-livecd-2.4.3.ebuild:
+  Fix bootloader.sh
+
+*clip-livecd-2.4.3 (19 Oct 2011)
+
+  19 Oct 2011; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.3.ebuild, -clip-livecd-2.4.2.ebuild:
+  Change prepare-key.sh options.
+
+*clip-livecd-2.4.2 (19 Oct 2011)
+
+  19 Oct 2011; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.2.ebuild, -clip-livecd-2.4.1.ebuild:
+  Save persistent data outside the loop directory (dev use only).
+
+*clip-livecd-2.4.1 (03 Oct 2011)
+
+  03 Oct 2011; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.1.ebuild, -clip-livecd-2.4.0.ebuild:
+  Fix initrd to support kernel 3.0
+
+*clip-livecd-2.4.0 (19 Aug 2011)
+
+  19 Aug 2011; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.4.0.ebuild, -clip-livecd-2.3.1.ebuild:
+  Support an option to keep all user data from a previous install.
+
+*clip-livecd-2.3.1 (05 Jul 2011)
+
+  05 Jul 2011; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.3.1.ebuild, -clip-livecd-2.3.0.ebuild:
+  enter-loop.sh - fix session cleanup.
+  livecd-mkinitrd.sh - fix static binary detection.
+
+*clip-livecd-2.3.0 (23 Jun 2011)
+
+  23 Jun 2011; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.3.0.ebuild, -clip-livecd-2.2.2.ebuild:
+  Merge and cleanup prepare-{,local-,tagged-}mirrors.sh, break compatibility with optional
+  arguments, add confname option.
+
+*clip-livecd-2.2.2 (11 May 2011)
+
+  11 May 2011; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.2.2.ebuild, -clip-livecd-2.2.1.ebuild:
+  Fix gateway disk sizes for smaller disks (so that install
+  is possible on 32G disks).
+
+*clip-livecd-2.2.1 (27 Apr 2011)
+
+  27 Apr 2011; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.2.1.ebuild, -clip-livecd-2.2.0.ebuild:
+  Restore support for liveCDs/DVDs. Include a new helper script,
+  prepare-key.sh, to create new copies of the install media from
+  within the live environment (useful to e.g. generate install
+  USB tokens from a booted install DVD).
+
+*clip-livecd-2.2.0 (28 Mar 2011)
+
+  28 Mar 2011; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.2.0.ebuild, -clip-livecd-2.1.1.ebuild:
+  Support full disk encryption.
+
+*clip-livecd-2.1.1 (04 Mar 2011)
+
+  04 Mar 2011; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.1.1.ebuild, -clip-livecd-2.1.0.ebuild:
+  Switch to graphical boot screen, offer 800x600 option.
+
+*clip-livecd-2.1.0 (14 Feb 2011)
+
+  14 Feb 2011; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.1.0.ebuild, -clip-livecd-2.0.8.ebuild:
+  Local repository and cache overlay.
+
+*clip-livecd-2.0.8 (07 Feb 2011)
+
+  07 Feb 2011; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.0.8.ebuild, -clip-livecd-2.0.7.ebuild:
+  Minor fixes - enlarge livecd initrd, clear bash history
+  during media generation.
+
+*clip-livecd-2.0.7 (31 Jan 2011)
+
+  31 Jan 2011; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +clip-livecd-2.0.7.ebuild, -clip-livecd-2.0.6.ebuild:
+  Cleanup, fixup and merge prepare-iso.sh with prepare-key.sh into
+  prepare-media.sh.
+  Create chroot scripts directories.
+
+*clip-livecd-2.0.6 (07 Oct 2010)
+
+  07 Oct 2010; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.0.6.ebuild, -clip-livecd-2.0.5.ebuild:
+  Switch to a single, configurable gateway install.
+  Also finally fix multiple versions piling up in /etc/bash/bashrc.
+  Add verbose mode to full_install.sh.
+
+*clip-livecd-2.0.5 (23 Sep 2010)
+
+  23 Sep 2010; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.0.5.ebuild, -clip-livecd-2.0.4.ebuild:
+  Fix for init_partitions.sh + create proper mirrors, usable
+  for updates as well.
+
+*clip-livecd-2.0.4 (20 Sep 2010)
+
+  20 Sep 2010; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.0.4.ebuild, -clip-livecd-2.0.3.ebuild:
+  Update help and dependencies.
+
+*clip-livecd-2.0.3 (13 Sep 2010)
+
+  13 Sep 2010; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.0.3.ebuild, -clip-livecd-2.0.2.ebuild:
+  Add help file + update dependencies.
+
+*clip-livecd-2.0.2 (01 Sep 2010)
+
+  01 Sep 2010; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.0.2.ebuild, -clip-livecd-2.0.1.ebuild:
+  Smallish cosmetic fixes - do not ask for confirmation on
+  full_install.sh.
+  Add clip-install-gui to RDEPENDS.
+
+*clip-livecd-2.0.1 (30 Aug 2010)
+
+  30 Aug 2010; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.0.1.ebuild, -clip-livecd-2.0.0.ebuild:
+  Add help skeleton. Change default boot to vga=792.
+  Add X dependencies.
+
+*clip-livecd-2.0.0 (25 Aug 2010)
+
+  25 Aug 2010; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-2.0.0.ebuild, -clip-livecd-1.2.1.ebuild:
+  Switch to modular kernel install. Upgrade scripts and remove 
+  binaries from the distfile - we now use those from the current
+  tree instead. Leave initrd generation to an installed script, 
+  invoked when generating the bootable medium, rather than inline 
+  in the ebuild. Drop mirrors squashfs, and use /mirrors directory
+  on the bootable medium instead, so this can be also used for 
+  upgrades.
+
+*clip-livecd-1.2.1 (03 Mar 2010)
+
+  03 Mar 2010; Olivier Levillain <clipos@ssi.gouv.fr>
+  +clip-livecd-1.2.1.ebuild, -clip-livecd-1.2.0.ebuild:
+  Rewrite properly compute_parts.sh. Moreover, RAID support and
+  CLIP_TYPE are now two decorelated parameters at installation.
+  
+*clip-livecd-1.2.0 (28 Jan 2010)
+
+  28 Jan 2010; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-1.2.0.ebuild, -clip-livecd-1.1.1.ebuild:
+  Support having only one RM jail in CLIP-RM configs.
+  Add get-mirrors.sh variants to create the mirror from 
+  a local directory, or from a SVN tag.
+
+*clip-livecd-1.1.1 (10 Nov 2009)
+
+  10 Nov 2009; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-1.1.1.ebuild, -clip-livecd-1.1.0.ebuild:
+  Fix syslinux-3.83 support.
+
+*clip-livecd-1.1.0 (10 Nov 2009)
+
+  10 Nov 2009; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-1.1.0.ebuild, -clip-livecd-1.0.5.ebuild:
+  Use fixed hardware config from clip-installer-2.5.0.
+
+*clip-livecd-1.0.5 (21 Sep 2009)
+
+  21 Sep 2009; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-1.0.5.ebuild, -clip-livecd-1.0.4.ebuild:
+  Do not force a screen geometry when calling clip-installer,
+  so that it can pick it up from the config.
+
+*clip-livecd-1.0.4 (07 Aug 2009)
+
+  07 Aug 2009; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-1.0.4.ebuild, -clip-livecd-1.0.3.ebuild:
+  Support custom screen geometries at install.
+
+*clip-livecd-1.0.3 (20 May 2009)
+
+  20 May 2009; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-1.0.3.ebuild, -clip-livecd-1.0.2.ebuild:
+
+*clip-livecd-1.0.2 (24 Apr 2009)
+
+  24 Apr 2009; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-1.0.2.ebuild, -clip-livecd-1.0.1.ebuild:
+  Bump initrd's binary busybox from 1.3 to 1.14, so that mdev
+  supports kernel 2.6.28.
+  Fix missing whitespaces in dependencies.
+
+*clip-livecd-1.0.1 (08 Apr 2009)
+
+  08 Apr 2009; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-1.0.1.ebuild, -clip-livecd-1.0.ebuild:
+  Fix installs with CLIP-NG and GTW configurations.
+
+*clip-livecd-1.0 (03 Apr 2009)
+
+  03 Apr 2009; Vincent Strubel <clipos@ssi.gouv.fr>
+  +clip-livecd-1.0.ebuild, -clip-livecd-0.9.ebuild:
+  Do not initialize backup partitions for CLIP-NG.
+
+*clip-installer-0.7 (03 Sep 2008)
+
+  03 Sep 2008; Olivier Levillain <clipos@ssi.gouv.fr>
+  +clip-livecd-0.7.ebuild -clip-livecd-0.6.ebuild:
+  Bugfix on init-partitions for gateways
+  Option -f (force) added to prepare-iso.sh to really skip mirrors
+  generation
+
+*clip-installer-0.6 (29 Aug 2008)
+
+  29 Aug 2008; Olivier Levillain <clipos@ssi.gouv.fr>
+  +clip-livecd-0.6.ebuild -clip-livecd-0.5.ebuild:
+  Simplification of the procedures, many bugfixes and the script
+  prepare-key added
+
+*clip-installer-0.5 (28 Jul 2008)
+
+  28 Jul 2008; Olivier Levillain <clipos@ssi.gouv.fr>
+  +clip-livecd-0.5.ebuild -clip-livecd-0.3.ebuild:
+  Complete reorganisation of loop-content; parameters added for all
+  scripts; new cache for the mirrors during installation
+
+*clip-installer-0.3 (19 Jun 2008)
+
+  19 Jun 2008; Olivier Levillain <clipos@ssi.gouv.fr>
+  +clip-livecd-0.3.ebuild -clip-livecd-0.2.ebuild:
+  Unique mirror used now by the scripts. Added kernel configs for
+  the moment.
+
+*clip-installer-0.2 (12 Jun 2008)
+
+  12 Jun 2008; Olivier Levillain <clipos@ssi.gouv.fr>
+  +clip-livecd-0.2.ebuild -clip-livecd-0.1.ebuild:
+  Bugs corrected in sbin-scripts. Boot with the same kernel for gtw and rm.
+
+*clip-installer-0.1 (02 Jun 2008)
+
+  02 Jun 2008; Olivier Levillain <clipos@ssi.gouv.fr>
+  +clip-livecd-0.1.ebuild:
+  Initial import.

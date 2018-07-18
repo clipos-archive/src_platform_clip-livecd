@@ -1,0 +1,11 @@
+etc/mtab
+home
+mnt
+opt/clip-int
+proc
+root
+tmp
+usr/src
+var/cache
+var/log
+var/tmp
